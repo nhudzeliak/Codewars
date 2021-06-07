@@ -1,0 +1,15 @@
+import math
+
+def tour(friends, friend_towns, home_to_town_distances):
+    towns_to_visit = []
+    for friend in friends:
+        for fr, town in friend_towns:
+            if friend == fr:
+                towns_to_visit.append(town)
+    distance = home_to_town_distances[towns_to_visit[0]] + home_to_town_distances[towns_to_visit[-1]]
+    for i in range(len(towns_to_visit) - 1):
+        distance += distance_betw_towns(towns_to_visit[i], towns_to_visit[i+1], home_to_town_distances)
+    return math.floor(distance)
+
+def distance_betw_towns(town1, town2, table):
+    return math.sqrt(table[town2] ** 2 - table[town1] ** 2)
